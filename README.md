@@ -10,21 +10,28 @@ This generator does take a bit to load, but be patient and it could save you a b
 
 If you'd like to use, please read all of the instructions before starting.
 
+Requires npm 5.2+.  Make sure your node and npm are up to date!
+
 ---
 
-## Installation
-
-`npm install vannya-mern-app` || `yarn add vannya-mern-app`  
-
-Run using `vannya-mern-app` and answering the questions for setup.  
-
-## How to use
+## Data to collect before install
 
 Please make sure that you have the following data for creation of the app:  
 Note: these are in gitignored.  I'll add a better walk through at a later date.  
 1. [Google+ API OAuth Client ID and Secret ID.](https://console.developers.google.com)
 2. [mLab database created with database user added.](https://mlab.com) You'll need the URI code with your user and password inserted into it.
 3. [Heroku for deployment](https://www.heroku.com).  You'll need to add the config variables in your app at heroku.com.
+
+---
+
+## Installation
+
+Run using `npx install vannya-mern-app` and answering the questions for setup.  
+Setup takes a while, especially at the Create-React-App step. Go get a drink and c'mon back!  
+
+After install navigate to the new directory (your app name) and `npm run dev`!
+
+---
 
 ### Included features
 
