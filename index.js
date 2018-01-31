@@ -232,7 +232,7 @@ const installFrontEndPackages = () => {
     );
     shell.cd("client");
     shell.exec(
-      `npm install redux react-router react-redux redux-thunk react-router-dom axios node-sass-chokidar`,
+      `npm install redux react-router react-redux redux-thunk react-router-dom axios node-sass-chokidar lodash`,
       () => {
         console.log("\nFinished installing packages\n".green);
         resolve();
@@ -248,7 +248,20 @@ const createFrontEndFileStructure = () => {
     shell.exec(`del App.js`);
     shell.exec(`del App.test.js`);
     shell.exec(`del logo.svg`);
-    shell.mkdir("actions", "components", "reducers", "styles", "utils");
+    shell.mkdir(
+      "actions", 
+      "components", 
+      "reducers", 
+      "stylesheets", 
+      "utils", 
+      "stylesheets/abstracts", 
+      "stylesheets/assets", 
+      "stylesheets/base", 
+      "stylesheets/components", 
+      "stylesheets/layout", 
+      "stylesheets/pages",
+      "stylesheets/vendors"
+    );
     resolve();
   });
 };
