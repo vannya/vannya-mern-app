@@ -212,7 +212,7 @@ const createReactApp = appName => {
     if (appName) {
       shell.exec(`create-react-app ${appName}`, code => {
         console.log("Exited with code ", code);
-        console.log("Created react app");
+        console.log("Create React App is loaded.".green);
         resolve(true);
       });
     } else {
@@ -234,7 +234,7 @@ const installFrontEndPackages = () => {
     shell.exec(
       `npm install redux react-router react-redux redux-thunk react-router-dom axios node-sass-chokidar lodash`,
       () => {
-        console.log("\nFinished installing packages\n".green);
+        console.log("\nFinished installing frontend packages\n".green);
         resolve();
       }
     );
@@ -262,6 +262,7 @@ const createFrontEndFileStructure = () => {
       "stylesheets/pages",
       "stylesheets/vendors"
     );
+    console.log("\nSass architecture is built.\m".green);
     resolve();
   });
 };
@@ -284,6 +285,7 @@ const addFrontEndFiles = () => {
       });
     });
     Promise.all(promises).then(() => {
+      console.log("\nFront end files are created.\n".blue);
       resolve();
     });
   });

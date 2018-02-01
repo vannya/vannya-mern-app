@@ -1,3 +1,3 @@
-module.exports - `header {
+module.exports = `header {
   background-color: gray;
 }`

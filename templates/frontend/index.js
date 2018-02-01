@@ -14,7 +14,9 @@ const store = createStore(reducers, {}, applyMiddleware(reduxThunk));
 
 ReactDOM.render(
   <Provider store={store}>
-    <App />
+    <ScrollToTop>
+      <App />
+    </ScrollToTop>
   </Provider>,
   document.querySelector("#root")
 );`
