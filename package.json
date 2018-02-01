@@ -1,6 +1,6 @@
 {
   "name": "vannya-mern-app",
-  "version": "1.0.1",
+  "version": "1.0.3",
   "description": "MERN app generator for quick CRUD applications.",
   "main": "index.js",
   "scripts": {
