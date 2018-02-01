@@ -1,6 +1,7 @@
 ## vannya-mern-app
 
 MERN app generator by [Van Tabbert](https://github.com/vannya).  
+[NPM link](npmjs.com/package/vannya-mern-app)  
 
 My personal generator for quick CRUD applications.  
 
@@ -41,6 +42,7 @@ After install navigate to the new directory (your app name) and `npm run dev`!
 + Google authorization
 + Small and growing collection of helpers and utils that I use on projects.
 + React Router V4
++ 7-1 Sass architecture
 
 
 #### Backend: 
@@ -54,7 +56,6 @@ After install navigate to the new directory (your app name) and `npm run dev`!
 ---
 
 ### Future Planned Additions
-+ 7-1 Sass architecture (building now)
 + Stripe Integration option.
 + Smaller React app generator.
 + Adding in tests.
