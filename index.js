@@ -47,7 +47,7 @@ const run = async () => {
     ])
     .then(answer => {
       appName = answer.appName;
-      appDirectory = `${process.cwd()}\\${appName}`;
+      appDirectory = `${process.cwd()}/${appName}`;
       googleId = answer.googleId;
       googleSecret = answer.googleSecret;
       mongoURI = answer.mongoURI;
@@ -81,6 +81,7 @@ const run = async () => {
 const makeDirectory = () => {
   return new Promise(resolve => {
     shell.mkdir(appDirectory);
+    console.log(appDirectory)
     resolve();
   });
 };
