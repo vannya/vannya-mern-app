@@ -15,7 +15,7 @@ const Header = (props) => {
   }
 
   return (
-    <div>{renderAuth()}</div>
+    <header>{renderAuth()}</header>
   );
 }
 

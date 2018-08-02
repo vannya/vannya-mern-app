@@ -1,6 +1,7 @@
 module.exports = `import React from "react";
 import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
+import { BrowserRouter } from "react-router-dom";
 import { createStore, applyMiddleware } from "redux";
 import reduxThunk from "redux-thunk";
 import ScrollToTop from "./ScrollToTop";
@@ -14,9 +15,11 @@ const store = createStore(reducers, {}, applyMiddleware(reduxThunk));
 
 ReactDOM.render(
   <Provider store={store}>
-    <ScrollToTop>
-      <App />
-    </ScrollToTop>
+    <BrowserRouter>
+      <ScrollToTop>
+        <App />
+      </ScrollToTop>
+    </BrowserRouter>
   </Provider>,
   document.querySelector("#root")
 );`

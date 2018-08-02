@@ -245,10 +245,10 @@ const installFrontEndPackages = () => {
 const createFrontEndFileStructure = () => {
   return new Promise(resolve => {
     shell.cd("src");
-    shell.exec(`del App.css`);
-    shell.exec(`del App.js`);
-    shell.exec(`del App.test.js`);
-    shell.exec(`del logo.svg`);
+    shell.exec(`rm App.css`);
+    shell.exec(`rm App.js`);
+    shell.exec(`rm App.test.js`);
+    shell.exec(`rm logo.svg`);
     shell.mkdir(
       "actions", 
       "components", 

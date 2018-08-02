@@ -27,8 +27,9 @@ Note: these are in gitignored.  I'll add a better walk through at a later date.
 
 ## Installation
 
-Run using `npx install vannya-mern-app` and answering the questions for setup.  
-Setup takes a while, especially at the Create-React-App step. Go get a drink and c'mon back!  
+Install to your local machine using `npm install -g vannya-mern-app`.
+Run using `vannya-mern-app` and answering the questions for setup.  
+Setup can take a while, especially at the Create-React-App step. Go get a drink and c'mon back! 
 
 After install navigate to the new directory (your app name) and `npm run dev`!
 
