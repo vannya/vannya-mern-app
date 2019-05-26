@@ -1,14 +1,13 @@
 #!/usr/bin/env node
 const shell = require("shelljs");
-const colors = require("colors");
 const fs = require("fs");
 const inquirer = require("inquirer");
 const backendTemplates = require("./templates/backend/backendTemplates.js");
 const frontendTemplates = require("./templates/frontend/frontEndTemplates.js");
-// const packageJSON = require("./templates/backend/initialize.json");
 
 let appName, appDirectory, googleId, googleSecret, mongoURI, cookieKey;
 
+// Main function flow
 const run = async () => {
   await inquirer
     .prompt([
@@ -55,12 +54,11 @@ const run = async () => {
     });
   await makeDirectory();
   await cdIntoNewFolder();
-  await initializeProject();
-  await configPackageJSON();
-  await installBackEndPackages();
   await initializeGit();
   await createBackEndFileStructure();
   await addBackEndFiles();
+  await configPackageJSON();
+  await installBackEndPackages();
   await configDev();
   let success = await createReactApp("client");
   if (!success) {
@@ -78,6 +76,7 @@ const run = async () => {
   console.log("All done!".red);
 };
 
+// Creates directory for project at currentfolder/appName
 const makeDirectory = () => {
   return new Promise(resolve => {
     shell.mkdir(appDirectory);
@@ -86,6 +85,7 @@ const makeDirectory = () => {
   });
 };
 
+// Change directory into newly made folder
 const cdIntoNewFolder = () => {
   return new Promise(resolve => {
     shell.cd(appDirectory);
@@ -93,24 +93,13 @@ const cdIntoNewFolder = () => {
   });
 };
 
-const initializeProject = () => {
-  return new Promise(resolve => {
-    shell.exec(`npm init --yes`, () => {
-      resolve();
-    });
-  });
-};
-
+// Configure the package.json for the project
 const configPackageJSON = () => {
   return new Promise(resolve => {
     var file = require("./package.json");
     var obj = appName;
     file.name = obj;
     file.version = "1.0.0";
-    file.description = "";
-    file.keywords = undefined;
-    file.author = "";
-    file.repository = "";
     file.scripts = {
       base: "node index.js",
       server: "nodemon index.js",
@@ -125,6 +114,10 @@ const configPackageJSON = () => {
     };
     file.dependencies = {};
     delete file.bin;
+    delete file.keywords;
+    delete file.description;
+    delete file.repository;
+    delete file.author;
 
     fs.writeFile(
       `${appDirectory}/package.json`,
@@ -140,6 +133,7 @@ const configPackageJSON = () => {
   });
 };
 
+// Initialize git 
 const initializeGit = () => {
   return new Promise(resolve => {
     shell.exec(`git init`, () => {
@@ -148,6 +142,7 @@ const initializeGit = () => {
   });
 };
 
+// Add backend folders
 const createBackEndFileStructure = () => {
   return new Promise(resolve => {
     shell.mkdir("services", "routes", "models", "middlewares", "config");
@@ -155,6 +150,7 @@ const createBackEndFileStructure = () => {
   });
 };
 
+// Install packages that will be used by the backend
 const installBackEndPackages = () => {
   return new Promise(resolve => {
     console.log(
@@ -170,6 +166,8 @@ const installBackEndPackages = () => {
   });
 };
 
+
+// Add backend boilerplate files.  
 const addBackEndFiles = () => {
   return new Promise(resolve => {
     let promises = [];
@@ -193,6 +191,7 @@ const addBackEndFiles = () => {
   });
 };
 
+// Configure dev.js file with keys from app initialization
 const configDev = () => {
   return new Promise(resolve => {
     var devFile = `module.exports = {
@@ -213,6 +212,7 @@ const configDev = () => {
   });
 };
 
+// Run CRA to generate basic front end application
 const createReactApp = appName => {
   return new Promise(resolve => {
     if (appName) {
@@ -230,6 +230,7 @@ const createReactApp = appName => {
   });
 };
 
+// Install supplemental packages used in the front end
 const installFrontEndPackages = () => {
   return new Promise(resolve => {
     console.log(
@@ -247,6 +248,7 @@ const installFrontEndPackages = () => {
   });
 };
 
+// Edit the front end file structure and add folders.
 const createFrontEndFileStructure = () => {
   return new Promise(resolve => {
     shell.cd("src");
@@ -262,6 +264,7 @@ const createFrontEndFileStructure = () => {
   });
 };
 
+// Add the front end template files
 const addFrontEndFiles = () => {
   return new Promise(resolve => {
     let promises = [];
@@ -286,6 +289,7 @@ const addFrontEndFiles = () => {
   });
 };
 
+// Configure the client package.json
 const configClientPackageJSON = () => {
   return new Promise(resolve => {
     var clientFile = require(`${appDirectory}/client/package.json`);
