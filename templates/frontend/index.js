@@ -5,7 +5,7 @@ import { BrowserRouter } from "react-router-dom";
 import { createStore, applyMiddleware } from "redux";
 import reduxThunk from "redux-thunk";
 import ScrollToTop from "./ScrollToTop";
-import "./stylesheets/main.css";
+import "./index.css";
 
 
 import App from "./components/App";

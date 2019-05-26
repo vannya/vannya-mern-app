@@ -2,7 +2,7 @@ module.exports = `// Emails passed in as a comma separated list.
 // Example: import validateEmails from "../../utils/validateEmails"; 
 // errors.recipients = validateEmails(values.recipients || "");
 
-const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+const re = /^(([^<>()[]\.,;:s@"]+(.[^<>()[]\.,;:s@"]+)*)|(".+"))@(([[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}])|(([a-zA-Z-0-9]+.)+[a-zA-Z]{2,}))$/;
 
 export default emails => {
   let invalidEmails = emails
@@ -20,4 +20,5 @@ export default emails => {
   }
 
   return;
-};`;
+};`
+

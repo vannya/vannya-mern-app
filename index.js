@@ -106,11 +106,16 @@ const configPackageJSON = () => {
     var file = require("./package.json");
     var obj = appName;
     file.name = obj;
+    file.version = "1.0.0";
+    file.description = "";
+    file.keywords = undefined;
+    file.author = "";
+    file.repository = "";
     file.scripts = {
-      start: "node index.js",
+      base: "node index.js",
       server: "nodemon index.js",
       client: "npm run start --prefix client",
-      dev: 'concurrently "npm run server" "npm run client"',
+      start: 'concurrently --kill-others "npm run base" "npm run client"',
       "heroku-postbuild":
         "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
     };
@@ -211,7 +216,7 @@ const configDev = () => {
 const createReactApp = appName => {
   return new Promise(resolve => {
     if (appName) {
-      shell.exec(`create-react-app ${appName}`, code => {
+      shell.exec(`npx create-react-app ${appName}`, code => {
         console.log("Exited with code ", code);
         console.log("Create React App is loaded.".green);
         resolve(true);
@@ -233,7 +238,7 @@ const installFrontEndPackages = () => {
     );
     shell.cd("client");
     shell.exec(
-      `npm install redux react-router react-redux redux-thunk react-router-dom axios node-sass-chokidar lodash`,
+      `npm install redux react-router react-redux redux-thunk react-router-dom axios http-proxy-middleware typescript`,
       () => {
         console.log("\nFinished installing frontend packages\n".green);
         resolve();
@@ -245,25 +250,14 @@ const installFrontEndPackages = () => {
 const createFrontEndFileStructure = () => {
   return new Promise(resolve => {
     shell.cd("src");
-    shell.exec(`rm App.css`);
     shell.exec(`rm App.js`);
     shell.exec(`rm App.test.js`);
-    shell.exec(`rm logo.svg`);
     shell.mkdir(
       "actions", 
       "components", 
       "reducers", 
-      "stylesheets", 
       "utils", 
-      "stylesheets/abstracts", 
-      "stylesheets/assets", 
-      "stylesheets/base", 
-      "stylesheets/components", 
-      "stylesheets/layout", 
-      "stylesheets/pages",
-      "stylesheets/vendors"
     );
-    console.log("\nSass architecture is built.\m".green);
     resolve();
   });
 };
@@ -295,23 +289,11 @@ const addFrontEndFiles = () => {
 const configClientPackageJSON = () => {
   return new Promise(resolve => {
     var clientFile = require(`${appDirectory}/client/package.json`);
-    var obj = appName;
     clientFile.scripts = {
-      "build-css": "node-sass-chokidar src/stylesheets -o src/stylesheets",
-      "watch-css": "npm run build-css && node-sass-chokidar src/stylesheets -o src/stylesheets --watch --recursive",
       "start": "react-scripts start",
       "build": "react-scripts build",
       "test": "react-scripts test --env=jsdom",
       "eject": "react-scripts eject",
-      "dev": "concurrently \"npm run start\" \"npm run watch-css\""
-    };
-    clientFile.proxy = {
-      "/auth/google": {
-        "target": "http://localhost:5000"
-      },
-      "/api/*": {
-        "target": "http://localhost:5000"
-      }
     };
 
     fs.writeFile(
@@ -341,11 +323,9 @@ const createGitREADME = () => {
     
     ### Tech Used:
     
-    #### Front End: React, Redux, React Router V4
+    #### Front End: React, Redux
     
-    #### Back End: Express, Mongo(mLab), Mongoose, Passport
-    
-    #### Deployment: Heroku
+    #### Back End: Node, Express
     `;
 
     fs.writeFile(
