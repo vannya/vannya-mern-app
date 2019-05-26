@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 const shell = require("shelljs");
+const colors = require('colors');
 const fs = require("fs");
 const inquirer = require("inquirer");
 const backendTemplates = require("./templates/backend/backendTemplates.js");
@@ -15,7 +16,7 @@ const run = async () => {
         type: "input",
         name: "appName",
         message: "App Name: ",
-        filter: function(val) {
+        filter: function (val) {
           return val.toLowerCase();
         }
       },
@@ -96,33 +97,30 @@ const cdIntoNewFolder = () => {
 // Configure the package.json for the project
 const configPackageJSON = () => {
   return new Promise(resolve => {
-    var file = require("./package.json");
-    var obj = appName;
-    file.name = obj;
-    file.version = "1.0.0";
-    file.scripts = {
-      base: "node index.js",
-      server: "nodemon index.js",
-      client: "npm run start --prefix client",
-      start: 'concurrently --kill-others "npm run base" "npm run client"',
-      "heroku-postbuild":
-        "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
-    };
-    file.engines = {
-      node: "8.9.3",
-      npm: "5.5.1"
-    };
-    file.dependencies = {};
-    delete file.bin;
-    delete file.keywords;
-    delete file.description;
-    delete file.repository;
-    delete file.author;
+    var file =
+    {
+      "name": appName,
+      "version": "1.0.0",
+      "license": "MIT",
+      "main": "index.js",
+      "scripts": {
+        "base": "node index.js",
+        "server": "nodemon index.js",
+        "client": "npm run start --prefix client",
+        "start": "concurrently --kill-others \"npm run base\" \"npm run client\"",
+        "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
+      },
+      "dependencies": {},
+      "engines": {
+        "node": "8.9.3",
+        "npm": "5.5.1"
+      }
+    }
 
     fs.writeFile(
       `${appDirectory}/package.json`,
       JSON.stringify(file, null, 2),
-      function(err) {
+      function (err) {
         if (err) {
           return console.log(err);
         }
@@ -176,7 +174,7 @@ const addBackEndFiles = () => {
         fs.writeFile(
           `${appDirectory}/${fileName}`,
           backendTemplates[fileName],
-          function(err) {
+          function (err) {
             if (err) {
               return console.log(err);
             }
@@ -202,7 +200,7 @@ const configDev = () => {
       redirectDomain: 'http://localhost:3000'
     };`;
 
-    fs.writeFile(`${appDirectory}/config/dev.js`, devFile, function(err) {
+    fs.writeFile(`${appDirectory}/config/dev.js`, devFile, function (err) {
       if (err) {
         return console.log(err);
       }
@@ -255,10 +253,10 @@ const createFrontEndFileStructure = () => {
     shell.exec(`rm App.js`);
     shell.exec(`rm App.test.js`);
     shell.mkdir(
-      "actions", 
-      "components", 
-      "reducers", 
-      "utils", 
+      "actions",
+      "components",
+      "reducers",
+      "utils",
     );
     resolve();
   });
@@ -273,7 +271,7 @@ const addFrontEndFiles = () => {
         fs.writeFile(
           `${appDirectory}/${fileName}`,
           frontendTemplates[fileName],
-          function(err) {
+          function (err) {
             if (err) {
               return console.log(err);
             }
@@ -303,7 +301,7 @@ const configClientPackageJSON = () => {
     fs.writeFile(
       `${appDirectory}/client/package.json`,
       JSON.stringify(clientFile, null, 2),
-      function(err) {
+      function (err) {
         if (err) {
           return console.log(err);
         }
@@ -319,8 +317,8 @@ const createGitREADME = () => {
     shell.cd(`${appDirectory}`);
     shell.touch("README.md");
 
-    let file = 
-    `
+    let file =
+      `
     # ${appName}
 
     ## [Live Demo]()
@@ -335,7 +333,7 @@ const createGitREADME = () => {
     fs.writeFile(
       `${appDirectory}/README.md`,
       file,
-      function(err) {
+      function (err) {
         if (err) {
           return console.log(err);
         }
