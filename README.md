@@ -6,7 +6,6 @@ MERN app generator by [Van Tabbert](https://github.com/vannya).
 My personal generator for quick CRUD applications.  
 
 Lots of the format is pulled from courses I have taken and merged together.
-This is a work in progress as I find my fav setup and delve deeper into Node.
 This generator does take a bit to load, but be patient and it could save you a bunch of setup time.  
 
 If you'd like to use, please read all of the instructions before starting.

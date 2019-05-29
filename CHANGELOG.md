@@ -1,5 +1,10 @@
 # Versions  
 
+## 2.0.3  
+###### *May 26, 2019*  
+
+Found and corrected an error with the generation of package.json in relation to npm installation.  
+
 ## 2.0.0  
 ###### *May 26, 2019*  
 

@@ -7,5 +7,6 @@ module.exports = {
   "config/dev.js": require("./config/dev"),
   "config/prod.js": require("./config/prod"),
   "config/keys.js": require("./config/keys"),
+  "package.json": require("./package.js"),
   ".gitignore": require("./gitignore")
 };

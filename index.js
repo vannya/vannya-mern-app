@@ -1,14 +1,14 @@
 #!/usr/bin/env node
 const shell = require("shelljs");
-const colors = require("colors");
+const colors = require('colors');
 const fs = require("fs");
 const inquirer = require("inquirer");
 const backendTemplates = require("./templates/backend/backendTemplates.js");
 const frontendTemplates = require("./templates/frontend/frontEndTemplates.js");
-// const packageJSON = require("./templates/backend/initialize.json");
 
 let appName, appDirectory, googleId, googleSecret, mongoURI, cookieKey;
 
+// Main function flow
 const run = async () => {
   await inquirer
     .prompt([
@@ -16,7 +16,7 @@ const run = async () => {
         type: "input",
         name: "appName",
         message: "App Name: ",
-        filter: function(val) {
+        filter: function (val) {
           return val.toLowerCase();
         }
       },
@@ -55,12 +55,11 @@ const run = async () => {
     });
   await makeDirectory();
   await cdIntoNewFolder();
-  await initializeProject();
-  await configPackageJSON();
-  await installBackEndPackages();
   await initializeGit();
   await createBackEndFileStructure();
   await addBackEndFiles();
+  await configPackageJSON();
+  await installBackEndPackages();
   await configDev();
   let success = await createReactApp("client");
   if (!success) {
@@ -78,6 +77,7 @@ const run = async () => {
   console.log("All done!".red);
 };
 
+// Creates directory for project at currentfolder/appName
 const makeDirectory = () => {
   return new Promise(resolve => {
     shell.mkdir(appDirectory);
@@ -86,6 +86,7 @@ const makeDirectory = () => {
   });
 };
 
+// Change directory into newly made folder
 const cdIntoNewFolder = () => {
   return new Promise(resolve => {
     shell.cd(appDirectory);
@@ -93,43 +94,33 @@ const cdIntoNewFolder = () => {
   });
 };
 
-const initializeProject = () => {
-  return new Promise(resolve => {
-    shell.exec(`npm init --yes`, () => {
-      resolve();
-    });
-  });
-};
-
+// Configure the package.json for the project
 const configPackageJSON = () => {
   return new Promise(resolve => {
-    var file = require("./package.json");
-    var obj = appName;
-    file.name = obj;
-    file.version = "1.0.0";
-    file.description = "";
-    file.keywords = undefined;
-    file.author = "";
-    file.repository = "";
-    file.scripts = {
-      base: "node index.js",
-      server: "nodemon index.js",
-      client: "npm run start --prefix client",
-      start: 'concurrently --kill-others "npm run base" "npm run client"',
-      "heroku-postbuild":
-        "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
-    };
-    file.engines = {
-      node: "8.9.3",
-      npm: "5.5.1"
-    };
-    file.dependencies = {};
-    delete file.bin;
+    var file =
+    {
+      "name": appName,
+      "version": "1.0.0",
+      "license": "MIT",
+      "main": "index.js",
+      "scripts": {
+        "base": "node index.js",
+        "server": "nodemon index.js",
+        "client": "npm run start --prefix client",
+        "start": "concurrently --kill-others \"npm run base\" \"npm run client\"",
+        "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
+      },
+      "dependencies": {},
+      "engines": {
+        "node": "8.9.3",
+        "npm": "5.5.1"
+      }
+    }
 
     fs.writeFile(
       `${appDirectory}/package.json`,
       JSON.stringify(file, null, 2),
-      function(err) {
+      function (err) {
         if (err) {
           return console.log(err);
         }
@@ -140,6 +131,7 @@ const configPackageJSON = () => {
   });
 };
 
+// Initialize git 
 const initializeGit = () => {
   return new Promise(resolve => {
     shell.exec(`git init`, () => {
@@ -148,6 +140,7 @@ const initializeGit = () => {
   });
 };
 
+// Add backend folders
 const createBackEndFileStructure = () => {
   return new Promise(resolve => {
     shell.mkdir("services", "routes", "models", "middlewares", "config");
@@ -155,6 +148,7 @@ const createBackEndFileStructure = () => {
   });
 };
 
+// Install packages that will be used by the backend
 const installBackEndPackages = () => {
   return new Promise(resolve => {
     console.log(
@@ -170,6 +164,8 @@ const installBackEndPackages = () => {
   });
 };
 
+
+// Add backend boilerplate files.  
 const addBackEndFiles = () => {
   return new Promise(resolve => {
     let promises = [];
@@ -178,7 +174,7 @@ const addBackEndFiles = () => {
         fs.writeFile(
           `${appDirectory}/${fileName}`,
           backendTemplates[fileName],
-          function(err) {
+          function (err) {
             if (err) {
               return console.log(err);
             }
@@ -193,6 +189,7 @@ const addBackEndFiles = () => {
   });
 };
 
+// Configure dev.js file with keys from app initialization
 const configDev = () => {
   return new Promise(resolve => {
     var devFile = `module.exports = {
@@ -203,7 +200,7 @@ const configDev = () => {
       redirectDomain: 'http://localhost:3000'
     };`;
 
-    fs.writeFile(`${appDirectory}/config/dev.js`, devFile, function(err) {
+    fs.writeFile(`${appDirectory}/config/dev.js`, devFile, function (err) {
       if (err) {
         return console.log(err);
       }
@@ -213,6 +210,7 @@ const configDev = () => {
   });
 };
 
+// Run CRA to generate basic front end application
 const createReactApp = appName => {
   return new Promise(resolve => {
     if (appName) {
@@ -230,6 +228,7 @@ const createReactApp = appName => {
   });
 };
 
+// Install supplemental packages used in the front end
 const installFrontEndPackages = () => {
   return new Promise(resolve => {
     console.log(
@@ -247,21 +246,23 @@ const installFrontEndPackages = () => {
   });
 };
 
+// Edit the front end file structure and add folders.
 const createFrontEndFileStructure = () => {
   return new Promise(resolve => {
     shell.cd("src");
     shell.exec(`rm App.js`);
     shell.exec(`rm App.test.js`);
     shell.mkdir(
-      "actions", 
-      "components", 
-      "reducers", 
-      "utils", 
+      "actions",
+      "components",
+      "reducers",
+      "utils",
     );
     resolve();
   });
 };
 
+// Add the front end template files
 const addFrontEndFiles = () => {
   return new Promise(resolve => {
     let promises = [];
@@ -270,7 +271,7 @@ const addFrontEndFiles = () => {
         fs.writeFile(
           `${appDirectory}/${fileName}`,
           frontendTemplates[fileName],
-          function(err) {
+          function (err) {
             if (err) {
               return console.log(err);
             }
@@ -286,6 +287,7 @@ const addFrontEndFiles = () => {
   });
 };
 
+// Configure the client package.json
 const configClientPackageJSON = () => {
   return new Promise(resolve => {
     var clientFile = require(`${appDirectory}/client/package.json`);
@@ -299,7 +301,7 @@ const configClientPackageJSON = () => {
     fs.writeFile(
       `${appDirectory}/client/package.json`,
       JSON.stringify(clientFile, null, 2),
-      function(err) {
+      function (err) {
         if (err) {
           return console.log(err);
         }
@@ -315,8 +317,8 @@ const createGitREADME = () => {
     shell.cd(`${appDirectory}`);
     shell.touch("README.md");
 
-    let file = 
-    `
+    let file =
+      `
     # ${appName}
 
     ## [Live Demo]()
@@ -331,7 +333,7 @@ const createGitREADME = () => {
     fs.writeFile(
       `${appDirectory}/README.md`,
       file,
-      function(err) {
+      function (err) {
         if (err) {
           return console.log(err);
         }
