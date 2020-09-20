@@ -36,7 +36,7 @@ const run = async () => {
         type: "input",
         name: "mongoURI",
         message:
-          "Go to mLab.com, create your database, add a database user and enter your URI here.\n Mongo URI: "
+          "Go to https://www.mongodb.com/cloud/atlas, create your database, add a database user and enter your URI here.\n Mongo URI: "
       },
       {
         type: "input",

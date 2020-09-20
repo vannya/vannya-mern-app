@@ -32,10 +32,10 @@
   ],
   "dependencies": {
     "colors": "^1.4.0",
-    "inquirer": "^7.0.0",
-    "shelljs": "^0.8.3"
+    "inquirer": "^7.3.3",
+    "shelljs": "^0.8.4"
   },
   "devDependencies": {
-    "mocha": "^6.2.1"
+    "mocha": "^8.1.3"
   }
 }
