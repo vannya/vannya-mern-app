@@ -1,4 +1,9 @@
 # Versions  
+## 2.0.6 
+###### *Sept 20, 2020*  
+
+Update packages to latest versions.
+Update setupProxy for changes from latest version of http-proxy-middleware.
 
 ## 2.0.3  
 ###### *May 26, 2019*  
