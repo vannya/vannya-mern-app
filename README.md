@@ -1,4 +1,4 @@
-## vannya-mern-app [![npm version](https://badge.fury.io/js/vannya-mern-app.svg)](https://badge.fury.io/js/vannya-mern-app) [![Build Status](https://travis-ci.org/vannya/vannya-mern-app.svg?branch=master)](https://travis-ci.org/vannya/vannya-mern-app)
+## vannya-mern-app [![npm version](https://badge.fury.io/js/vannya-mern-app.svg)](https://badge.fury.io/js/vannya-mern-app) [![Build Status](https://travis-ci.com/vannya/vannya-mern-app.svg?branch=master)](https://travis-ci.com/vannya/vannya-mern-app)
 
 MERN app generator by [Van Tabbert](https://github.com/vannya).  
 [NPM link](https://npmjs.com/package/vannya-mern-app)  
