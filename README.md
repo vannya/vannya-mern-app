@@ -1,7 +1,7 @@
-## vannya-mern-app
+## vannya-mern-app [![npm version](https://badge.fury.io/js/vannya-mern-app.svg)](https://badge.fury.io/js/vannya-mern-app) [![Build Status](https://travis-ci.org/vannya/vannya-mern-app.svg?branch=master)](https://travis-ci.org/vannya/vannya-mern-app)
 
 MERN app generator by [Van Tabbert](https://github.com/vannya).  
-[NPM link](npmjs.com/package/vannya-mern-app)  
+[NPM link](https://npmjs.com/package/vannya-mern-app)  
 
 My personal generator for quick CRUD applications.  
 
@@ -18,7 +18,7 @@ Requires npm 5.2+.  Make sure your node and npm are up to date!
 
 Please make sure that you have the following data for creation of the app:  
 1. [Google+ API OAuth Client ID and Secret ID.](https://console.developers.google.com)
-2. [mLab database created with database user added.](https://mlab.com) You'll need the URI code with your user and password inserted into it.  This will work with other Mongo DBs as long as you provide the URI.
+2. [MongoDB Atlas database created with database user added.](https://www.mongodb.com/cloud/atlas) You'll need the URI code with your user and password inserted into it.  This will work with other Mongo DBs as long as you provide the URI.
 3. [Heroku for deployment](https://www.heroku.com).  You'll need to add the config variables in your app at heroku.com.
 
 ---
@@ -60,7 +60,7 @@ If you failed to provide the keys asked for during installation, you will need t
 + If you find no related issue, create a new one.  
 + Include all details you can ( operative system, environment, interpreter version, etc.. ).   
 + Include the error log.  
-+ Remember to check the discussion and update if there changes.  
++ Remember to check the discussion and update if there are changes.  
 
 ### Contributing  
 
